@@ -4,10 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity //represents a table in a relational database
@@ -20,6 +17,7 @@ import java.util.List;
 public class Paper extends BaseEntity<Integer> {
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "proposalId")
     private Proposal proposal;
 
     //    private int proposalID;

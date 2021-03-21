@@ -2,9 +2,7 @@ package domain;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -19,5 +17,10 @@ public class Section extends BaseEntity<Integer> {
 //    private int conferenceID;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sectionChairId")
     private SectionChair sectionChair;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conferenceId")
+    private Conference conference;
 }

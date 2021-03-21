@@ -21,7 +21,7 @@ public class Author extends Participant{
     private String lastName;
     private String email;
 
-    @OneToMany(mappedBy = "proposal",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)//used for collections
     private List<Proposal> proposal;
 

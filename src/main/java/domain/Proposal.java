@@ -1,6 +1,7 @@
 package domain;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @Builder
 public class Proposal extends BaseEntity<Integer> {
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "authorId")
     private Author author;
 
     private String title;
@@ -29,4 +31,8 @@ public class Proposal extends BaseEntity<Integer> {
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
     List<Bidding> biddings;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conferenceId")
+    private Conference conference;
 }

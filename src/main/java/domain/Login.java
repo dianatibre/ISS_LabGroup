@@ -18,7 +18,7 @@ public class Login {
 
     @ManyToOne
     @JoinColumn(name = "participantId")
-    private Integer participantId;
+    private Participant participant;
 //    public void get(){
 //        Login login = Login.builder().username("a").password("a").build();
 //        login.getPassword();

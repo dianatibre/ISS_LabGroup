@@ -26,6 +26,7 @@ public class PCMember extends BaseEntity<Integer> {
     private String email;
     private String website;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "loginId")
     private Login login;
 }
