@@ -23,11 +23,9 @@ public class Proposal extends BaseEntity<Integer> {
     private String description;
     private String abstractProposal;
 
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     private Paper paper;
 
-    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "proposal", cascade = CascadeType.ALL)
     List<Bidding> biddings;
