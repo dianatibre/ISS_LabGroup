@@ -1,6 +1,8 @@
 package domain;
 
 import lombok.*;
+import domain.Proposal;
+
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

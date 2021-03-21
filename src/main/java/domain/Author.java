@@ -1,11 +1,12 @@
 package domain;
 
 import lombok.*;
+import domain.Proposal;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.OneToMany;
-import org.codehaus.jackson.annotate.JsonIgnore;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -16,6 +17,12 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Inheritance()
 public class Author extends Participant{
 
-    @OneToMany
-    private Proposal proposal;
+    private String firstName;
+    private String lastName;
+    private String email;
+
+    @OneToMany(mappedBy = "proposal",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)//used for collections
+    private List<Proposal> proposal;
+
 }
