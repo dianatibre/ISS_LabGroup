@@ -1,0 +1,4 @@
+rootProject.name = 'Lab9'
+include 'store-core'
+include 'store-web'
+
