@@ -2,9 +2,7 @@ package domain;
 
 import lombok.*;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -13,6 +11,8 @@ import javax.persistence.Entity;
 @ToString
 @Builder
 public class Evaluation extends BaseEntity<Integer>{
+    private String result;
+
     @ManyToOne
     @JoinColumn(name = "reviewerId")
     private Reviewer reviewer;
@@ -20,6 +20,4 @@ public class Evaluation extends BaseEntity<Integer>{
     @ManyToOne
     @JoinColumn(name = "paperId")
     private Paper paper;
-
-    private String result;
 }

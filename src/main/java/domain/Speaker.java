@@ -2,9 +2,7 @@ package domain;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -12,16 +10,14 @@ import javax.persistence.OneToOne;
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = true)
-public class Speaker extends Author {
+public class Speaker extends Author{
+    private String presentation;
 
-    @Getter @Setter
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sectionId")
     private Section section;
 
-    @Getter @Setter
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name="paperId")
     private Paper paper;
-
-    @Getter @Setter
-    private String presentation;
 }

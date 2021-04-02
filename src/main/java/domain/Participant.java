@@ -5,22 +5,25 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @Builder
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Participant extends BaseEntity<Integer>{
-    @OneToMany(mappedBy = "participant",fetch = FetchType.EAGER) //loaded together with the rest of the fields
+    @OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)//loaded together with the rest of the fields
     List<Fee> fees;
 
     private String firstName;
     private String lastName;
     private int age;
+    private String affiliation;
 
-    @OneToMany(mappedBy="participant")
+
+    @OneToOne
+    @JoinColumn(name = "loginId")
     private Login login;
 }

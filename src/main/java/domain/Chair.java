@@ -11,5 +11,5 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class Chair extends PCMember{
-    String position;//chair or co-chair
+    private String position;
 }

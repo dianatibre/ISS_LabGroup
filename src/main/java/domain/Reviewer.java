@@ -4,9 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -18,11 +16,9 @@ import java.util.List;
 public class Reviewer extends PCMember{
     private String domainOfInterest;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     List<Bidding> biddings;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
     List<Evaluation> evaluations;
 }

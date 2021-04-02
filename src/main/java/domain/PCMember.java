@@ -15,18 +15,15 @@ import java.util.List;
 @ToString
 @Builder
 @Inheritance(strategy = InheritanceType.JOINED)
-public class PCMember extends BaseEntity<Integer> {
-
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Conference> conferences;
-
+public class PCMember extends BaseEntity<Integer>{
     private String name;
     private String affiliation;
     private String email;
     private String website;
 
-    @OneToOne
-    @JoinColumn(name = "loginId")
+    @OneToMany(mappedBy = "pcMember",cascade = CascadeType.ALL)
+    private List<PCMember_Conference> conferences;
+
+    @OneToMany(mappedBy = "pcMember")
     private Login login;
 }

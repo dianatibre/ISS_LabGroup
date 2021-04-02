@@ -9,18 +9,17 @@ import javax.persistence.*;
 @Data
 @ToString
 @EqualsAndHashCode
-@Entity //represents a table in a relational database
 @Builder
+@Entity
 public class Login {
-    @Id @Column(name = "username")
+    @Id
     private String username;
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "participantId")
+    @OneToOne(mappedBy = "login")
     private Participant participant;
-//    public void get(){
-//        Login login = Login.builder().username("a").password("a").build();
-//        login.getPassword();
-//    }
+
+    @ManyToOne
+    @JoinColumn(columnDefinition = "pcMemberId")
+    private PCMember pcMember;
 }

@@ -1,7 +1,6 @@
 package domain;
 
 import lombok.*;
-import domain.Proposal;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,15 +13,9 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = true)
-@Inheritance()
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Author extends Participant{
-
-    private String firstName;
-    private String lastName;
-    private String email;
-
-    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)//used for collections
+    @ManyToOne
+    @JoinColumn(columnDefinition = "proposalId")
     private List<Proposal> proposal;
-
 }

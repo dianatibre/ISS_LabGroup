@@ -1,12 +1,8 @@
 package domain;
 
 import lombok.*;
-import domain.Proposal;
 
-
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -14,7 +10,9 @@ import javax.persistence.ManyToOne;
 @Data
 @ToString
 @Builder
-public class Bidding extends BaseEntity<Integer> {
+public class Bidding extends BaseEntity<Integer>{
+    private String result;
+
     @ManyToOne
     @JoinColumn(name = "reviewerId")
     private Reviewer reviewer;
@@ -22,5 +20,4 @@ public class Bidding extends BaseEntity<Integer> {
     @ManyToOne
     @JoinColumn(name = "proposalId")
     private Proposal proposal;
-    private String result;
 }

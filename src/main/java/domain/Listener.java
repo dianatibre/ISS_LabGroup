@@ -1,23 +1,18 @@
 package domain;
 
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
 @EqualsAndHashCode(callSuper = true)
+@Entity
 public class Listener extends Participant{
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "listener",cascade = CascadeType.ALL)
     private List<Section> sections = new ArrayList<>();
 }
