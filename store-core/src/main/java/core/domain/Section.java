@@ -22,7 +22,4 @@ public class Section extends BaseEntity<Integer>{
 
     @OneToOne(mappedBy = "section",cascade = CascadeType.ALL)
     private Speaker speaker;
-
-    @ManyToOne
-    private Listener listener;
 }

@@ -16,6 +16,6 @@ import java.util.List;
 @Entity
 public class Listener extends Participant {
     @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy = "listener",cascade = CascadeType.ALL)
-    private List<Section> sections = new ArrayList<>();
+    @OneToOne
+    private Section sectionId;
 }
