@@ -1,13 +1,11 @@
-//package core.service;
+package core.service;
 
-//import core.domain.*;
-/*
-import core.repository.ChairRepoI;
-import core.repository.ConferenceRepoI;
-import core.repository.ListenerRepoI;
-import core.repository.SectionRepoI;
+import core.domain.*;
+
+import core.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +49,7 @@ public class PCMemberService {
     }
 
     public boolean addReviewer(Reviewer reviewer) {
-        if(reviewer.getName().equals("") || reviewer.getBiddings().isEmpty() || reviewer.getEvaluations().isEmpty())
+        if(reviewer.getName().equals("") || reviewer.getBiddings().isEmpty() )
             return false;
 
         Optional<Reviewer> re = this.reviewerRepo.findById(reviewer.getId());
@@ -85,14 +83,14 @@ public class PCMemberService {
         else
             return Optional.empty();
     }
-
+/*
     public Optional<Chair> getChairBySectionID(int sectionId) {
         Optional<Integer> chairId = sectionRepo.findAll().stream().filter(s -> s.getId() == sectionId).map(s-> s.getSectionChair().getId()).findAny();
         if (chairId.isPresent()) {
             return chairRepo.findById(chairId.get());
         } else
             return Optional.empty();
-    }
+    }*/
 
     public Optional<PCMember> getPCMemberByUsername(String username) {
         Optional<Login> login = loginRepo.findAll().stream().filter(l -> l.getUsername().equals(username)).findAny();
@@ -114,9 +112,10 @@ public class PCMemberService {
     @Transactional
     public boolean addSectionToListener(Integer listenerID, Section s) {
         Listener listener = listenerRepo.findById(listenerID).get();
-        List<Section> sections = listener.getSections();
+       // List<Section> sections = listener.getSections();
         Section se = sectionRepo.findById(s.getId()).get();
-        sections.add(se);
+       // sections.add(se);
+        listener.setSectionId(se);
         this.listenerRepo.save(listener);
         return true;
     }
@@ -125,9 +124,8 @@ public class PCMemberService {
     public long numberListenersPerSection(Integer sectionID) {
         Section s = sectionRepo.findById(sectionID).get();
         List<Listener> listeners = listenerRepo.findAll();
-        return listeners.stream().filter(l -> l.getSections().contains(s)).count();
+        return listeners.stream().filter(l -> l.getSectionId().equals(s)).count();
     }
 }
 
- */
 
