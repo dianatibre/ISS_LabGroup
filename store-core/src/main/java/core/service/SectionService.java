@@ -16,21 +16,18 @@ public class SectionService {
     private ConferenceRepoI conferenceRepo;
     @Autowired
     private SessionChairRepoI sessionChairRepo;
-    @Autowired
-    private SpeakerRepoI speakerRepo;
-    @Autowired
-    private ListenerRepoI listenerRepo;
 
-    public Optional<Section> findOneSection(Integer id) { return sectionRepo.findById(id); }
+    public Optional<Section> findOneSection(Integer id) {
+        return sectionRepo.findById(id);
+    }
 
     public List<Section> getSections() {
         return new ArrayList<>(this.sectionRepo.findAll());
     }
 
     public boolean addSection(Section section) {
-        if(section.getName().equals("") || !conferenceRepo.findById(section.getConference().getId()).isPresent()
-        || !sessionChairRepo.findById(section.getSessionChair().getId()).isPresent() ||
-                !speakerRepo.findById(section.getSpeaker().getId()).isPresent())
+        if (section.getName().equals("") || !conferenceRepo.findById(section.getConference().getId()).isPresent()
+                || !sessionChairRepo.findById(section.getSessionChair().getId()).isPresent())
             return false;
         Optional<Section> conf = this.sectionRepo.findById(section.getId());
         if (conf.isPresent()) {
@@ -50,20 +47,18 @@ public class SectionService {
     }
 
     @Transactional
-    public boolean updateSection(Section section){
-        if(section.getName().equals("") || !conferenceRepo.findById(section.getConference().getId()).isPresent()
-                || !sessionChairRepo.findById(section.getSessionChair().getId()).isPresent() ||
-                !speakerRepo.findById(section.getSpeaker().getId()).isPresent())
+    public boolean updateSection(Section section) {
+        if (section.getName().equals("") || !conferenceRepo.findById(section.getConference().getId()).isPresent()
+                || !sessionChairRepo.findById(section.getSessionChair().getId()).isPresent())
             return false;
-        this.sectionRepo.findById(section.getId()).ifPresent(s->{
-           s.setName(section.getName());
-           s.setConference(section.getConference());
-           s.setSessionChair(section.getSessionChair());
-           s.setSpeaker(section.getSpeaker());
+        this.sectionRepo.findById(section.getId()).ifPresent(s -> {
+            s.setName(section.getName());
+            s.setConference(section.getConference());
+            s.setSessionChair(section.getSessionChair());
+            s.setSpeaker(section.getSpeaker());
         });
         return true;
     }
-
 
 
 }

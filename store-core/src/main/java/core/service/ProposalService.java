@@ -4,6 +4,7 @@ import core.domain.Bidding;
 import core.domain.Conference;
 import core.domain.Proposal;
 import core.repository.BiddingRepoI;
+import core.repository.ConferenceRepoI;
 import core.repository.ProposalRepoI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,15 +23,19 @@ public class ProposalService {
     @Autowired
     private BiddingRepoI biddingRepo;
 
+    @Autowired
+    ConferenceRepoI conferenceRepoI;
+
 
     // Add a new proposal
     // return false if proposal already exists
     // return true is proposal is saved successfully
     public boolean addProposal(Proposal p) throws Exception {
-        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("") || p.getAbstractProposal().equals("") )
-            throw new Exception("Proposal's fields must be complete !");
+        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("") || p.getAbstractProposal().equals("")
+                || !conferenceRepoI.findById(p.getConference().getId()).isPresent())
+            return false;
         Optional<Proposal> proposal = proposalRepo.findById(p.getId());
-        if(proposal.isPresent())
+        if (proposal.isPresent())
             return false;
         proposalRepo.save(p);
         return true;
@@ -43,17 +48,17 @@ public class ProposalService {
 
     @Transactional
     public boolean updateProposal(Proposal p) throws Exception {
-        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("") || p.getAbstractProposal().equals("") )
-            throw new Exception("Proposal's fields must be complete !");
+        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("") || p.getAbstractProposal().equals("") || !conferenceRepoI.findById(p.getConference().getId()).isPresent())
+            return false;
         Optional<Proposal> proposal = proposalRepo.findById(p.getId());
-        if(proposal.isPresent()) {
+        if (proposal.isPresent()) {
             this.proposalRepo.findById(p.getId()).ifPresent(p1 -> {
                 p1.setTitle(p.getTitle());
                 p1.setKeywords(p.getKeywords());
                 p1.setTopics(p.getTopics());
                 p1.setAbstractProposal(p.getAbstractProposal());
             });
-             return true;
+            return true;
         }
         return false;
 
@@ -63,7 +68,7 @@ public class ProposalService {
     /// Deletes a proposal
     // return false if that proposal doesn't exist
     // return true if that proposal is deleted successfully
-    public boolean deleteProposal(Integer id){
+    public boolean deleteProposal(Integer id) {
         Optional<Proposal> proposal = proposalRepo.findById(id);
         if (proposal.isPresent()) {
             proposalRepo.deleteById(id);
@@ -85,8 +90,6 @@ public class ProposalService {
         return new ArrayList<>(this.proposalRepo.findAll());
     }
 
-
-    @Transactional
     public boolean addBidding(Bidding bidding) throws Exception {
         try {
             Proposal proposal = proposalRepo.findById(bidding.getProposal().getId()).get();
@@ -97,6 +100,7 @@ public class ProposalService {
                     .result(bidding.getResult())
                     .build();
             biddings.add(nb);
+            biddingRepo.save(bidding);
             proposal.setBiddings(biddings);
             proposalRepo.save(proposal);
 

@@ -1,4 +1,6 @@
 package core.repository;
 
-public interface AuthorRepoI extends ParticipantRepoI{
+import core.domain.Author;
+
+public interface AuthorRepoI extends RepoI<Author,Integer>{
 }

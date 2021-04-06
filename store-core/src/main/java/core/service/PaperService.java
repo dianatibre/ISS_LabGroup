@@ -37,11 +37,10 @@ public class PaperService {
     }
 
 
-    @Transactional
     public boolean addEvaluation(Evaluation evaluation) {
         //find the number of evaluations of the specific paper, and if it's greater than 4, deny the operation
         Optional<Evaluation> pro = evalRepo.findById(evaluation.getId());
-        if(evalRepo.findEvaluationsByPaperId(pro.get().getPaper().getId()).size() >= 4) {
+        if (evalRepo.findEvaluationsByPaperId(pro.get().getPaper().getId()).size() >= 4) {
             return false;
         }
 

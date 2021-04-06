@@ -33,22 +33,6 @@ public class ParticipantService {
     private ConferenceRepoI conferenceRepo;
 
 
-//    public boolean addParticipant(Participant participant) {
-//        Optional<Participant> p = repo.findById(participant.getId());
-//        if (p.isPresent())
-//            return false;
-//        repo.save(participant);
-//        return true;
-//    }
-
-//    public List<Participant> getParticipantsByConferenceId(Integer conferenceId) {
-//        List<Integer> participantIds = feeRepo.findAll().stream().filter(f -> f.getConferenceId() == conferenceId).map(Fee::getParticipantId).collect(Collectors.toList());
-//        return participantIds.stream().map(p -> {
-//            Optional<Participant> pa = repo.findById(p);
-//            return pa.orElse(null);
-//        }).filter(Objects::nonNull).collect(Collectors.toList());
-//    }
-
     public Optional<Participant> findOneParticipant(Integer id) {
         return repo.findById(id);
     }
@@ -94,8 +78,8 @@ public class ParticipantService {
         return true;
     }
 
-    public Optional<Participant> getAuthor(int participantId) {
-        Optional<Participant> p = authorRepo.findById(participantId);
+    public Optional<Author> getAuthor(int participantId) {
+        Optional<Author> p = authorRepo.findById(participantId);
         if (p.isPresent())
             return authorRepo.findById(participantId);
         else
@@ -128,7 +112,7 @@ public class ParticipantService {
     @Transactional
     public Optional<Participant> getParticipantByUsername(String username) {
         Optional<Login> login = loginRepo.findAll().stream().filter(l -> l.getUsername().equals(username)).findAny();
-        Optional<Participant> author = authorRepo.findAll().stream().filter(p -> p.getLogin().equals(login.get())).findAny();
+        Optional<Author> author = authorRepo.findAll().stream().filter(p -> p.getLogin().equals(login.get())).findAny();
         if(author.isPresent()) {
             Participant p = (Participant) author.get();
             return Optional.of(p);

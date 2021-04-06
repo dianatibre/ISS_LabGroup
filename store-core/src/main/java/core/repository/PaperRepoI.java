@@ -1,6 +1,6 @@
 package core.repository;
 
-import core.domain.Listener;
+import core.domain.Paper;
 
-public interface PaperRepoI extends RepoI<Listener, Integer>{
+public interface PaperRepoI extends RepoI<Paper, Integer>{
 }
