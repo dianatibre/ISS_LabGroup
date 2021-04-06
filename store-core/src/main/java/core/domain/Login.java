@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 public class Login {
+
     @Id
     private String username;
     private String password;

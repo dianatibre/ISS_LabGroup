@@ -59,6 +59,4 @@ public class SectionService {
         });
         return true;
     }
-
-
 }

@@ -1,6 +1,5 @@
 package core.repository;
 
-import core.domain.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

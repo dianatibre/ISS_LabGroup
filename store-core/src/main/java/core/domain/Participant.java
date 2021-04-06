@@ -22,7 +22,6 @@ public class Participant extends BaseEntity<Integer>{
     private int age;
     private String affiliation;
 
-
     @OneToOne
     private Login login;
 }

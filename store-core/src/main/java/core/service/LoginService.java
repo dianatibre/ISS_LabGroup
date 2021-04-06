@@ -1,48 +1,63 @@
 package core.service;
 
-import core.domain.ExtendedLogin;
 import core.domain.Login;
-import core.domain.Participant;
 import core.repository.LoginRepoI;
+import core.repository.PCMemberRepoI;
 import core.repository.ParticipantRepoI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class LoginService {
 
     @Autowired
-    private LoginRepoI repo;
+    private LoginRepoI loginRepo;
 
     @Autowired
-    private ParticipantRepoI partRepo;
+    private ParticipantRepoI participantRepo;
 
-    public boolean signUp(Login login) {
-        Optional<Login> lo = repo.findAll().stream().filter(l -> l.getUsername().equals(login.getUsername())).findAny();
-        if (lo.isPresent())
+    @Autowired
+    private PCMemberRepoI pcMemberRepo;
+
+    public Optional<Login> findOneLogin(Integer id) {
+        return loginRepo.findById(id);
+    }
+
+    public List<Login> getLogins() {
+        return new ArrayList<>(this.loginRepo.findAll());
+    }
+
+    public boolean addLogin(Login login) {
+        if (login.getUsername().equals("") || login.getPassword().equals("") ||
+                !participantRepo.findById(login.getParticipant().getId()).isPresent() ||
+                !pcMemberRepo.findById(login.getParticipant().getId()).isPresent())
             return false;
-        repo.save(login);
+        //verify if the login is in loginRepo
+        this.loginRepo.save(login);
         return true;
     }
 
-    public List<ExtendedLogin> login(String username, String password) {
-        Optional<Login> lo = repo.findAll().stream().filter(l -> l.getUsername().equals(username) && l.getPassword().equals(password)).findAny();
-        if (lo.isPresent()) {
-            List<ExtendedLogin> result = new ArrayList<>();
-
-            List<Participant> parts = partRepo.findAll().stream().filter(p -> p.getLogin().equals(lo.get())).collect(Collectors.toList());
-            for (Participant part : parts) {
-                result.add(new ExtendedLogin(part.getClass().getSimpleName(), part));
-            }
-
-            return result;
-        } else {
-            return new ArrayList<>();
+    public boolean deleteLogin(Integer id) {
+        Optional<Login> conf = this.loginRepo.findById(id);
+        if (conf.isPresent()) {
+            this.loginRepo.deleteById(id);
+            return true;
         }
+        return false;
+    }
+
+    @Transactional
+    public boolean updateLogin(Login login) {
+        if (login.getUsername().equals("") || login.getPassword().equals("") ||
+                !participantRepo.findById(login.getParticipant().getId()).isPresent()||
+                !pcMemberRepo.findById(login.getParticipant().getId()).isPresent())
+            return false;
+        //if login.getUsername() is in loginRepo, then we set the password, participant and pcMember
+        return true;
     }
 }
