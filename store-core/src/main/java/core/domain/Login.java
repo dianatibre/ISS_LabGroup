@@ -19,7 +19,6 @@ public class Login {
     @OneToOne(mappedBy = "login")
     private Participant participant;
 
-    @ManyToOne
-    @JoinColumn(columnDefinition = "pcMemberId")
+    @OneToOne(mappedBy = "login")
     private PCMember pcMember;
 }

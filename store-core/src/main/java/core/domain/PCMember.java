@@ -27,6 +27,6 @@ public class PCMember extends BaseEntity<Integer>{
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Conference> conferences;
 
-    @OneToMany(mappedBy = "pcMember")
-    private List<Login> login;
+    @OneToOne
+    private Login login;
 }
