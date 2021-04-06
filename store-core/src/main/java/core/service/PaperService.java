@@ -7,6 +7,7 @@ import core.domain.Section;
 import core.repository.EvaluationRepoI;
 import core.repository.PaperRepoI;
 import core.repository.ProposalRepoI;
+import core.repository.ReviewerRepoI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ public class PaperService {
 
     @Autowired
     private ProposalRepoI proposalRepo;
+
+    @Autowired
+    private ReviewerRepoI reviewerRepo;
 
     public boolean addPaper(Paper paper) {
         if(paper.getTitle().equals("") || paper.getDocument().equals("") || !proposalRepo.findById(paper.getProposal().getId()).isPresent()){
@@ -73,7 +77,7 @@ public class PaperService {
         if (evalRepo.findEvaluationsByPaperId(pro.get().getPaper().getId()).size() >= 4) {
             return false;
         }
-        if (evaluation.getResult().equals(""))
+        if (evaluation.getResult().equals("") || !reviewerRepo.findById(evaluation.getReviewer().getId()).isPresent() || !repo.findById(evaluation.getPaper().getId()).isPresent())
             return false;
 
         Optional<Evaluation> ev = this.evalRepo.findById(evaluation.getId());
@@ -103,7 +107,8 @@ public class PaperService {
     }
 
     public boolean updateEvaluationResult(Evaluation evaluation) {
-        if (evaluation.getResult().equals(""))
+        if (evaluation.getResult().equals("") || !reviewerRepo.findById(evaluation.getReviewer().getId()).isPresent() || !repo.findById(evaluation.getPaper().getId()).isPresent())
+
             return false;
         Evaluation e = this.evalRepo.findById(evaluation.getId()).get();
         e.setResult(evaluation.getResult());
