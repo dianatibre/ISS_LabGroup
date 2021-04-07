@@ -43,7 +43,7 @@ public class ParticipantService {
 
     public boolean addParticipant(Participant newParticipant)
     {
-        if(newParticipant.getFees().size() == 0 || newParticipant.getFirstName().equals("") || newParticipant.getLastName().equals("") || newParticipant.getAge() < 0 || newParticipant.getAffiliation().equals(""))
+        if(newParticipant.getFirstName().equals("") || newParticipant.getLastName().equals("") || newParticipant.getAge() < 0 || newParticipant.getAffiliation().equals(""))
         {
             return false;
         }
@@ -70,7 +70,7 @@ public class ParticipantService {
     @Transactional
     public boolean updateParticipant(Participant newParticipant)
     {
-        if(newParticipant.getFees().size() == 0 || newParticipant.getFirstName().equals("") || newParticipant.getLastName().equals("") || newParticipant.getAge() < 16 || newParticipant.getAffiliation().equals(""))
+        if(newParticipant.getFirstName().equals("") || newParticipant.getLastName().equals("") || newParticipant.getAge() < 16 || newParticipant.getAffiliation().equals(""))
         {
             return false;
         }
@@ -93,6 +93,15 @@ public class ParticipantService {
 
     public boolean addConferenceFee(Fee newFee)
     {
+        if(newFee.getConference().getName().equals("") || newFee.getConference().getTopic().equals("") || newFee.getConference().getDescription().equals("")|| newFee.getConference().getLocation().equals("") || (newFee.getConference().getStartdate().compareTo(newFee.getConference().getEnddate()))<0 || newFee.getConference().getCapacity()<=0)
+        {
+            return false;
+        }
+
+        if(newFee.getParticipant().getFees().size() == 0 || newFee.getParticipant().getFirstName().equals("") || newFee.getParticipant().getLastName().equals("") || newFee.getParticipant().getAge() < 0 || newFee.getParticipant().getAffiliation().equals(""))
+        {
+            return false;
+        }
         Optional<Fee> auxFee = this.feeRepo.findById(newFee.getId());
         if (auxFee.isPresent())
         {
@@ -116,6 +125,15 @@ public class ParticipantService {
     @Transactional
     public boolean updateConferenceFee(Fee newFee)
     {
+        if(newFee.getConference().getName().equals("") || newFee.getConference().getTopic().equals("") || newFee.getConference().getDescription().equals("")|| newFee.getConference().getLocation().equals("") || (newFee.getConference().getStartdate().compareTo(newFee.getConference().getEnddate()))<0 || newFee.getConference().getCapacity()<=0)
+        {
+            return false;
+        }
+
+        if(newFee.getParticipant().getFees().size() == 0 || newFee.getParticipant().getFirstName().equals("") || newFee.getParticipant().getLastName().equals("") || newFee.getParticipant().getAge() < 0 || newFee.getParticipant().getAffiliation().equals(""))
+        {
+            return false;
+        }
         this.feeRepo.findById(newFee.getId()).ifPresent(f->{
             f.setConference(newFee.getConference());
             f.setParticipant(newFee.getParticipant());
