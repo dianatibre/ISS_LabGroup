@@ -37,7 +37,11 @@ public class LoginService {
                 !participantRepo.findById(login.getParticipant().getId()).isPresent() ||
                 !pcMemberRepo.findById(login.getParticipant().getId()).isPresent())
             return false;
-        //verify if the login is in loginRepo
+
+        List<Login> logins = this.loginRepo.findAll();
+        if (logins.contains(login)) {
+            return false;
+        }
         this.loginRepo.save(login);
         return true;
     }
@@ -54,10 +58,17 @@ public class LoginService {
     @Transactional
     public boolean updateLogin(Login login) {
         if (login.getUsername().equals("") || login.getPassword().equals("") ||
-                !participantRepo.findById(login.getParticipant().getId()).isPresent()||
+                !participantRepo.findById(login.getParticipant().getId()).isPresent() ||
                 !pcMemberRepo.findById(login.getParticipant().getId()).isPresent())
             return false;
         //if login.getUsername() is in loginRepo, then we set the password, participant and pcMember
+        List<Login> logins = this.loginRepo.findAll();
+        if (logins.contains(login)) {
+            Login toUpdate = logins.get(logins.indexOf(login));
+            toUpdate.setPassword(login.getPassword());
+            toUpdate.setParticipant(login.getParticipant());
+            toUpdate.setPcMember(login.getPcMember());
+        }
         return true;
     }
 }
