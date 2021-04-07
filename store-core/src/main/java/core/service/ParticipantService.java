@@ -107,8 +107,16 @@ public class ParticipantService {
         {
             return false;
         }
-        this.feeRepo.save(newFee);
-        return true;
+        Optional<Participant> auxParticipant = this.participantRepo.findById(newFee.getParticipant().getId());
+        Optional<Conference> auxConference = this.conferenceRepo.findById(newFee.getConference().getId());
+
+        if(auxConference.isPresent() && auxParticipant.isPresent())
+        {
+            this.feeRepo.save(newFee);
+            return true;
+        }
+        return false;
+
     }
 
     public boolean deleteConferenceFee(Integer id)
@@ -134,12 +142,21 @@ public class ParticipantService {
         {
             return false;
         }
-        this.feeRepo.findById(newFee.getId()).ifPresent(f->{
-            f.setConference(newFee.getConference());
-            f.setParticipant(newFee.getParticipant());
-            f.setDate(newFee.getDate());
-        });
-        return true;
+        Optional<Participant> auxParticipant = this.participantRepo.findById(newFee.getParticipant().getId());
+        Optional<Conference> auxConference = this.conferenceRepo.findById(newFee.getConference().getId());
+
+        if(auxConference.isPresent() && auxParticipant.isPresent())
+        {
+            this.feeRepo.findById(newFee.getId()).ifPresent(f->{
+                f.setConference(newFee.getConference());
+                f.setParticipant(newFee.getParticipant());
+                f.setDate(newFee.getDate());
+            });
+            return true;
+        }
+        return false;
+
+
     }
 
     //  ------------ Author -----------------
