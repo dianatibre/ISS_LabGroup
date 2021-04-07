@@ -110,5 +110,33 @@ public class ProposalService {
         return true;
     }
 
+    @Transactional
+    public boolean updateBidding(Bidding bidding) throws Exception {
+        Optional<Bidding> bid = biddingRepo.findById(bidding.getId());
+        if (bid.isPresent()) {
+            this.biddingRepo.findById(bidding.getId()).ifPresent(b -> {
+               b.setProposal(bidding.getProposal());
+               b.setResult(bidding.getResult());
+               b.setReviewer(bidding.getReviewer());
+            });
+            return true;
+        }
+        return false;
+
+    }
+
+    /// Deletes a bidding
+    // return false if that bidding doesn't exist
+    // return true if that bidding is deleted successfully
+
+    public boolean deleteBidding(Integer id) {
+        Optional<Bidding> bidding = biddingRepo.findById(id);
+        if (bidding.isPresent()) {
+            biddingRepo.deleteById(id);
+            return true;
+        }
+        return false;
+
+    }
 
 }
