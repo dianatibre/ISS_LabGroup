@@ -33,7 +33,7 @@ public class PCMemberService {
 
 
     public boolean addPCMember(PCMember member) {
-       if(member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals(""))
+       if(member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals("")|| loginRepo.findByUsername(member.getLogin().getUsername()) == null)
            return false;
 
        Optional<PCMember> mem = this.repo.findById(member.getId());
@@ -61,7 +61,8 @@ public class PCMemberService {
 
     @Transactional
     public boolean updatePCMember(PCMember member){
-        if(member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals(""))
+        if(member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals("")
+            || loginRepo.findByUsername(member.getLogin().getUsername()) == null)
             return false;
 
         this.repo.findById(member.getId()).ifPresent(m -> {

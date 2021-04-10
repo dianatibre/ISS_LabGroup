@@ -18,12 +18,6 @@ public class LoginService {
     @Autowired
     private LoginRepoI loginRepo;
 
-    @Autowired
-    private ParticipantRepoI participantRepo;
-
-    @Autowired
-    private PCMemberRepoI pcMemberRepo;
-
     public Optional<Login> findOneLogin(Integer id) {
         return loginRepo.findById(id);
     }

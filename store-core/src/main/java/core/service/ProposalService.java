@@ -6,6 +6,7 @@ import core.domain.Proposal;
 import core.repository.BiddingRepoI;
 import core.repository.ConferenceRepoI;
 import core.repository.ProposalRepoI;
+import core.repository.ReviewerRepoI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,10 @@ public class ProposalService {
     private BiddingRepoI biddingRepo;
 
     @Autowired
-    ConferenceRepoI conferenceRepoI;
+    private ConferenceRepoI conferenceRepoI;
 
+    @Autowired
+    private ReviewerRepoI reviewerRepoI;
 
     // Add a new proposal
     // return false if proposal already exists
@@ -90,34 +93,37 @@ public class ProposalService {
         return new ArrayList<>(this.proposalRepo.findAll());
     }
 
-    public boolean addBidding(Bidding bidding) throws Exception {
-        try {
-            Proposal proposal = proposalRepo.findById(bidding.getProposal().getId()).get();
-            List<Bidding> biddings = proposal.getBiddings();
-            Bidding nb = Bidding.builder()
-                    .reviewer(bidding.getReviewer())
-                    .proposal(proposal)
-                    .result(bidding.getResult())
-                    .build();
-            biddings.add(nb);
-            biddingRepo.save(bidding);
-            proposal.setBiddings(biddings);
-            proposalRepo.save(proposal);
-
-        } catch (Exception e) {
-            throw new Exception("Bidding adding failed!");
-        }
+    public boolean addBidding(Bidding bidding) {
+        if (bidding.getResult().equals("") ||
+                !proposalRepo.findById(bidding.getProposal().getId()).isPresent() ||
+                !reviewerRepoI.findById(bidding.getReviewer().getId()).isPresent())
+            return false;
+        Proposal proposal = proposalRepo.findById(bidding.getProposal().getId()).get();
+        List<Bidding> biddings = proposal.getBiddings();
+        Bidding nb = Bidding.builder()
+                .reviewer(bidding.getReviewer())
+                .proposal(proposal)
+                .result(bidding.getResult())
+                .build();
+        biddings.add(nb);
+        biddingRepo.save(bidding);
+        proposal.setBiddings(biddings);
+        proposalRepo.save(proposal);
         return true;
     }
 
     @Transactional
     public boolean updateBidding(Bidding bidding) throws Exception {
+        if (bidding.getResult().equals("") ||
+                !proposalRepo.findById(bidding.getProposal().getId()).isPresent() ||
+                !reviewerRepoI.findById(bidding.getReviewer().getId()).isPresent())
+            return false;
         Optional<Bidding> bid = biddingRepo.findById(bidding.getId());
         if (bid.isPresent()) {
             this.biddingRepo.findById(bidding.getId()).ifPresent(b -> {
-               b.setProposal(bidding.getProposal());
-               b.setResult(bidding.getResult());
-               b.setReviewer(bidding.getReviewer());
+                b.setProposal(bidding.getProposal());
+                b.setResult(bidding.getResult());
+                b.setReviewer(bidding.getReviewer());
             });
             return true;
         }

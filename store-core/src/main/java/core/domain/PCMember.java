@@ -23,10 +23,6 @@ public class PCMember extends BaseEntity<Integer>{
     private String email;
     private String website;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Conference> conferences;
-
     @OneToOne
     private Login login;
 }
