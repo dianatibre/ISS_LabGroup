@@ -49,22 +49,22 @@ public class Conference extends BaseEntity<Integer>{
     @Fetch(value = FetchMode.SUBSELECT)
     private List<PCMember> pcMembers;
 
-    public Conference(Date date, Date date1, Date date2, int i, Date date3, String a, Date date4, Date date5, Date date6, String a1, String a2, Date date7, Date date8, Date date9, String a3, Date date10) {
-        abstractDeadline=date;
-        assignReviewers=date1;
-        biddingDeadline=date2;
-        capacity=i;
-        createSection=date3;
-        description=a;
-        enddate=date4;
-        improvePaperDeadline=date5;
-        listenerRegistrationDeadline=date6;
-        location=a1;
-        name=a2;
-        paperDeadline=date7;
-        review=date8;
-        startdate=date9;
-        topic=a3;
-        uploadPresentationDeadline=date10;
-    }
+//    public Conference(Date date, Date date1, Date date2, int i, Date date3, String a, Date date4, Date date5, Date date6, String a1, String a2, Date date7, Date date8, Date date9, String a3, Date date10) {
+//        abstractDeadline=date;
+//        assignReviewers=date1;
+//        biddingDeadline=date2;
+//        capacity=i;
+//        createSection=date3;
+//        description=a;
+//        enddate=date4;
+//        improvePaperDeadline=date5;
+//        listenerRegistrationDeadline=date6;
+//        location=a1;
+//        name=a2;
+//        paperDeadline=date7;
+//        review=date8;
+//        startdate=date9;
+//        topic=a3;
+//        uploadPresentationDeadline=date10;
+//    }
 }
