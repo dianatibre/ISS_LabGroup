@@ -1,0 +1,103 @@
+ro/ubb/catalog/core/domain/Section.java
+ ro.ubb.catalog.core.domain.Section
+ ro.ubb.catalog.core.domain.Section$SectionBuilder
+ro/ubb/catalog/core/repository/AuthorRepoI.java
+ ro.ubb.catalog.core.repository.AuthorRepoI
+ro/ubb/catalog/core/domain/Conference.java
+ ro.ubb.catalog.core.domain.Conference
+ro/ubb/catalog/core/repository/LoginRepoI.java
+ ro.ubb.catalog.core.repository.LoginRepoI
+ro/ubb/catalog/core/domain/Login.java
+ ro.ubb.catalog.core.domain.Login
+ ro.ubb.catalog.core.domain.Login$LoginBuilder
+ro/ubb/catalog/core/repository/EmailRepoI.java
+ ro.ubb.catalog.core.repository.EmailRepoI
+ro/ubb/catalog/core/repository/FeeRepoI.java
+ ro.ubb.catalog.core.repository.FeeRepoI
+ro/ubb/catalog/core/service/LoginService.java
+ ro.ubb.catalog.core.service.LoginService
+ro/ubb/catalog/core/service/PCMemberService.java
+ ro.ubb.catalog.core.service.PCMemberService
+ro/ubb/catalog/core/domain/Bidding.java
+ ro.ubb.catalog.core.domain.Bidding
+ ro.ubb.catalog.core.domain.Bidding$BiddingBuilder
+ro/ubb/catalog/core/service/ProposalService.java
+ ro.ubb.catalog.core.service.ProposalService
+ro/ubb/catalog/core/domain/Paper.java
+ ro.ubb.catalog.core.domain.Paper
+ ro.ubb.catalog.core.domain.Paper$PaperBuilder
+ro/ubb/catalog/core/service/SectionService.java
+ ro.ubb.catalog.core.service.SectionService
+ro/ubb/catalog/core/domain/SessionChair.java
+ ro.ubb.catalog.core.domain.SessionChair
+ ro.ubb.catalog.core.domain.SessionChair$SessionChairBuilder
+ro/ubb/catalog/core/repository/ListenerRepoI.java
+ ro.ubb.catalog.core.repository.ListenerRepoI
+ro/ubb/catalog/core/service/ConferenceService.java
+ ro.ubb.catalog.core.service.ConferenceService
+ro/ubb/catalog/core/domain/Fee.java
+ ro.ubb.catalog.core.domain.Fee
+ ro.ubb.catalog.core.domain.Fee$FeeBuilder
+ro/ubb/catalog/core/domain/Listener.java
+ ro.ubb.catalog.core.domain.Listener
+ro/ubb/catalog/core/repository/RepoI.java
+ ro.ubb.catalog.core.repository.RepoI
+ro/ubb/catalog/core/domain/Speaker.java
+ ro.ubb.catalog.core.domain.Speaker
+ro/ubb/catalog/core/domain/BaseEntity.java
+ ro.ubb.catalog.core.domain.BaseEntity
+ro/ubb/catalog/core/service/ParticipantService.java
+ ro.ubb.catalog.core.service.ParticipantService
+ro/ubb/catalog/core/domain/Participant.java
+ ro.ubb.catalog.core.domain.Participant
+ ro.ubb.catalog.core.domain.Participant$ParticipantBuilder
+ro/ubb/catalog/core/repository/EvaluationRepoI.java
+ ro.ubb.catalog.core.repository.EvaluationRepoI
+ro/ubb/catalog/core/repository/SessionChairRepoI.java
+ ro.ubb.catalog.core.repository.SessionChairRepoI
+ro/ubb/catalog/core/repository/BiddingRepoI.java
+ ro.ubb.catalog.core.repository.BiddingRepoI
+ro/ubb/catalog/core/config/JPAConfig.java
+ ro.ubb.catalog.core.config.JPAConfig
+ro/ubb/catalog/core/repository/SectionRepoI.java
+ ro.ubb.catalog.core.repository.SectionRepoI
+ro/ubb/catalog/core/repository/ReviewerRepoI.java
+ ro.ubb.catalog.core.repository.ReviewerRepoI
+ro/ubb/catalog/core/service/PaperService.java
+ ro.ubb.catalog.core.service.PaperService
+ro/ubb/catalog/core/domain/Reviewer.java
+ ro.ubb.catalog.core.domain.Reviewer
+ro/ubb/catalog/core/repository/PCMemberRepoI.java
+ ro.ubb.catalog.core.repository.PCMemberRepoI
+ro/ubb/catalog/core/repository/PaperRepoI.java
+ ro.ubb.catalog.core.repository.PaperRepoI
+ro/ubb/catalog/core/domain/ExtendedLogin.java
+ ro.ubb.catalog.core.domain.ExtendedLogin
+ro/ubb/catalog/core/domain/PCMember.java
+ ro.ubb.catalog.core.domain.PCMember
+ ro.ubb.catalog.core.domain.PCMember$PCMemberBuilder
+ro/ubb/catalog/core/repository/ChairRepoI.java
+ ro.ubb.catalog.core.repository.ChairRepoI
+ro/ubb/catalog/core/domain/Chair.java
+ ro.ubb.catalog.core.domain.Chair
+ro/ubb/catalog/core/domain/Proposal.java
+ ro.ubb.catalog.core.domain.Proposal
+ ro.ubb.catalog.core.domain.Proposal$ProposalBuilder
+ro/ubb/catalog/core/domain/Email.java
+ ro.ubb.catalog.core.domain.Email
+ ro.ubb.catalog.core.domain.Email$EmailBuilder
+ro/ubb/catalog/core/domain/Evaluation.java
+ ro.ubb.catalog.core.domain.Evaluation
+ ro.ubb.catalog.core.domain.Evaluation$EvaluationBuilder
+ro/ubb/catalog/core/repository/ProposalRepoI.java
+ ro.ubb.catalog.core.repository.ProposalRepoI
+ro/ubb/catalog/core/repository/ConferenceRepoI.java
+ ro.ubb.catalog.core.repository.ConferenceRepoI
+ro/ubb/catalog/core/repository/ParticipantRepoI.java
+ ro.ubb.catalog.core.repository.ParticipantRepoI
+ro/ubb/catalog/core/repository/SpeakerRepoI.java
+ ro.ubb.catalog.core.repository.SpeakerRepoI
+ro/ubb/catalog/core/domain/Author.java
+ ro.ubb.catalog.core.domain.Author
+ro/ubb/catalog/core/service/EmailService.java
+ ro.ubb.catalog.core.service.EmailService

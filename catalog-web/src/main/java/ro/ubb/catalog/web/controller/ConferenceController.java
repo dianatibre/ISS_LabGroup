@@ -1,0 +1,170 @@
+package ro.ubb.catalog.web.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import ro.ubb.catalog.core.domain.*;
+import ro.ubb.catalog.core.service.*;
+
+import java.util.List;
+
+@RestController
+public class ConferenceController {
+    @Autowired
+    private ConferenceService conferenceService;
+
+    @Autowired
+    private SectionService sectionService;
+
+    @Autowired
+    private ParticipantService participantService;
+
+    @Autowired
+    private PCMemberService pcMemberService;
+
+    @Autowired
+    private PaperService paperService;
+
+    @Autowired
+    private ProposalService proposalService;
+
+    @Autowired
+    private LoginService loginService;
+
+    @Autowired
+    private EmailService emailService;
+
+    @RequestMapping(value = "/conferences", method = RequestMethod.POST)
+    ResponseEntity<String> saveConference(@RequestBody Conference conference) {
+        boolean result = conferenceService.addConference(conference);
+        if (result) {
+            return ResponseEntity.ok("Conference saved successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Conference was not saved!");
+        }
+    }
+
+    @RequestMapping(value = "/conferences", method = RequestMethod.GET)
+    List<Conference> getAllConferences() {
+        return conferenceService.getConferences();
+    }
+
+    @RequestMapping(value = "/emails", method = RequestMethod.POST)
+    ResponseEntity<String> saveEmail(@RequestBody Email email) {
+        boolean result = emailService.sendInvitation(email);
+        if (result) {
+            return ResponseEntity.ok("Invitation sent successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The invitation was not sent!");
+        }
+    }
+
+    @RequestMapping(value = "/emails", method = RequestMethod.GET)
+    List<Email> getAllEmails() {
+        return emailService.getAllEmails();
+    }
+
+
+    @RequestMapping(value ="/chairs", method = RequestMethod.POST)
+    ResponseEntity <String> addChairBasedInvitation(@RequestBody Chair chair) {
+
+            boolean addResult = pcMemberService.addChair(chair);
+            if (addResult){
+                return ResponseEntity.ok("A new chair was invited and added successfully !");
+            }
+
+            else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Chair was not added successfully!");
+            }
+    }
+
+
+   /* @RequestMapping(value ="/chairs", method = RequestMethod.POST)
+    ResponseEntity <String> addChairBasedInvitation(@RequestBody Chair chair, @RequestBody Email email) {
+        boolean result = emailService.sendInvitation(email);
+        if(result) {
+        boolean addResult = pcMemberService.addChair(chair);
+        if (addResult){
+            return ResponseEntity.ok("A new chair was invited and added successfully !");
+        }
+
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Chair was not added successfully!");
+        }
+        }
+        else{
+             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invitation was not sent!");
+        }
+    }*/
+
+    @RequestMapping(value ="/chairs", method = RequestMethod.GET)
+    List<Chair> getChairs(){ return pcMemberService.getAllChairs();}
+
+
+
+    @RequestMapping(value ="/pcmembers", method = RequestMethod.POST)
+    ResponseEntity <String> addPcMemberBasedInvitation(@RequestBody PCMember pcMember) {
+            boolean addResult = pcMemberService.addPCMember(pcMember);
+            if (addResult){
+                return ResponseEntity.ok("A new PcMember was invited and added successfully !");
+            }
+
+            else{
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PcMember was not added successfully!");
+            }
+    }
+
+
+    /*@RequestMapping(value ="/pcmembers", method = RequestMethod.POST)
+    ResponseEntity <String> addPcMemberBasedInvitation(@RequestBody PCMember pcMember, @RequestBody Email email) {
+        boolean result = emailService.sendInvitation(email);
+        if(result) {
+            boolean addResult = pcMemberService.addPCMember(pcMember);
+            if (addResult) {
+                return ResponseEntity.ok("A new PcMember was invited and added successfully !");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PcMember was not added successfully!");
+            }
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invitation was not sent!");
+        }
+    }*/
+
+    @RequestMapping(value ="/pcmembers", method = RequestMethod.GET)
+    List<PCMember> getPcMembers(){ return pcMemberService.getAllPCMembers();}
+
+
+    @RequestMapping(value="/proposals", method = RequestMethod.POST)
+    ResponseEntity <String> submitProposal(@RequestBody Proposal proposal){
+        boolean result = proposalService.addProposal(proposal);
+        if (result) {
+            return ResponseEntity.ok("Proposal submitted successfully!");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Proposal was not submitted!");
+        }
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    ResponseEntity <String> addLogin(@RequestBody Login login) {
+        boolean result = loginService.addLogin(login);
+        if (result) {
+            return ResponseEntity.ok("Login added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Login was not added!");
+        }
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    List<Login> getLogin(@RequestBody Login login) {return loginService.getLogins();}
+
+    @RequestMapping(value ="/proposals", method = RequestMethod.GET)
+    List<Proposal> getProposals(){ return proposalService.getProposals();}
+
+}
