@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ro.ubb.catalog.core.domain.*;
 import ro.ubb.catalog.core.service.*;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class ConferenceController {
@@ -39,6 +39,8 @@ public class ConferenceController {
 
     @Autowired
     private EmailService emailService;
+
+
 
     @RequestMapping(value = "/conferences", method = RequestMethod.POST)
     ResponseEntity<String> saveConference(@RequestBody Conference conference) {
@@ -194,4 +196,97 @@ public class ConferenceController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Recommendation was not added!");
         }
     }
+
+    @RequestMapping(value = "/getEvaluations", method = RequestMethod.GET)
+    List<Evaluation> getEvaluations() { return paperService.getAllEvaluations();}
+
+    @RequestMapping(value = "/papers", method = RequestMethod.GET)
+    List<Paper> getPapers() { return paperService.getAllPapers();}
+
+    @RequestMapping(value = "/authors", method = RequestMethod.GET)
+    List<Author> getAuthors() { return participantService.getAuthors();}
+
+
+
+    @RequestMapping(value = "/acceptedPapers", method = RequestMethod.GET)
+    List<Paper> getAcceptedPapers() {
+
+
+        List<Evaluation> evalId = getEvaluations().stream().filter(x -> x.getResult().equals("Accepted")).collect(Collectors.toList());
+        List<Paper> pap = new ArrayList<>();
+
+        evalId.forEach(x -> { pap.add( paperService.findOnePaper(x.getPaper().getId()).get());});
+
+        return pap;
+
+
+    }
+
+    @RequestMapping(value = "/authorsOfAllPapers", method = RequestMethod.GET)
+    List<Author> getPapersAuthors() { // returns the authors of the papers -- all of them
+
+        List<Paper> pap = getPapers();
+        List<Author> aut = new ArrayList<>();
+
+        pap.forEach(x -> {aut.add(participantService.findOneAuthor(x.getProposal().getId()).get());});
+
+        return aut;
+
+    }
+
+    @RequestMapping(value = "/paperOfAuthor", method = RequestMethod.GET)
+    Paper getPaperOfAuthor(@RequestBody Author author) { // returns the paper of one specific author
+
+        List<Paper> pap = getPapers();
+
+        return (Paper) pap.stream().filter(x -> x.getProposal().getId() == author.getProposal().getId());
+
+    }
+
+
+    @RequestMapping(value = "/authorsOfAcceptedPapers", method = RequestMethod.GET)
+    List<Author> getAuthorsAcceptedPapers() {// returns the authors of the accepted papers
+
+        List<Paper> pap = getAcceptedPapers();
+        List<Author> aut = new ArrayList<>();
+
+        pap.forEach(x -> {aut.add(participantService.findOneAuthor(x.getProposal().getId()).get());});
+
+        return aut;
+
+    }
+
+
+
+    @RequestMapping(value = "/updPaperOfAuthor", method = RequestMethod.POST)
+    ResponseEntity<String> updateAcceptedPaper(@RequestBody Author author, @RequestBody String document){
+
+        if (getAuthorsAcceptedPapers().contains(author))
+        {
+            Paper autPaper = getPaperOfAuthor(author);
+
+
+            autPaper.setDocument(document);
+
+            boolean result = paperService.updatePaper(autPaper);
+
+            if (result){
+                return ResponseEntity.ok("Document updated successfully!");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Couldn't update document!");
+            }
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Author has no accepted paper!");
+        }
+
+
+    }
+
+
+
+
+
 }

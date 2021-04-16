@@ -43,6 +43,8 @@ public class PaperService {
     }
 
     public Optional<Paper> findOnePaper(Integer id) {
+
+
         return repo.findById(id);
     }
 
@@ -105,6 +107,8 @@ public class PaperService {
     public List<Paper> getAllPapers() {
         return new ArrayList<>(this.repo.findAll());
     }
+
+    public List<Evaluation> getAllEvaluations() {return new ArrayList<>(this.evalRepo.findAll());}
 
     public boolean updateEvaluationResult(Evaluation evaluation) {
         if (evaluation.getResult().equals("") || !reviewerRepo.findById(evaluation.getReviewer().getId()).isPresent() || !repo.findById(evaluation.getPaper().getId()).isPresent())
