@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ro.ubb.catalog.core.domain.*;
 import ro.ubb.catalog.core.service.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -167,4 +168,30 @@ public class ConferenceController {
     @RequestMapping(value ="/proposals", method = RequestMethod.GET)
     List<Proposal> getProposals(){ return proposalService.getProposals();}
 
+    @RequestMapping(value="/evaluations",method=RequestMethod.POST)
+    ResponseEntity <String> addEvaluation(@RequestBody Evaluation evaluation) {
+        boolean result = paperService.addEvaluation(evaluation);
+        if (result) {
+            return ResponseEntity.ok("Evaluation added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Evaluation was not added!");
+        }
+    }
+
+    @RequestMapping(value ="/reviewers", method = RequestMethod.GET)
+    List<Reviewer> getReviewers(){ return pcMemberService.getAllReviewers();}
+
+    @RequestMapping(value ="/reviews", method = RequestMethod.GET)
+    List<Evaluation> getReviews(@RequestBody Proposal proposal){
+        return proposalService.findOneProposal(proposal.getId()).map(p->p.getPaper().getEvaluations()).orElse(Collections.emptyList());
+    }
+    @RequestMapping(value ="/recommendation", method = RequestMethod.POST)
+    ResponseEntity<String> addRecommendation(@RequestBody Evaluation evaluation){
+        boolean result = paperService.updateEvaluationResult(evaluation);
+        if (result) {
+            return ResponseEntity.ok("Recommendation added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Recommendation was not added!");
+        }
+    }
 }

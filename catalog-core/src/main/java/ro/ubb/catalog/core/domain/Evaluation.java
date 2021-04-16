@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @Builder
 public class Evaluation extends BaseEntity<Integer>{
     private String result;
-
+    private String recommendation;
     @ManyToOne
     private Reviewer reviewer;
 
