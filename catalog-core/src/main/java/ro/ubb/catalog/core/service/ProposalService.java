@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.ubb.catalog.core.domain.Bidding;
 import ro.ubb.catalog.core.domain.Proposal;
+import ro.ubb.catalog.core.domain.Reviewer;
 import ro.ubb.catalog.core.repository.BiddingRepoI;
 import ro.ubb.catalog.core.repository.ConferenceRepoI;
 import ro.ubb.catalog.core.repository.ProposalRepoI;
@@ -142,6 +143,25 @@ public class ProposalService {
         }
         return false;
 
+    }
+
+    public List<Bidding> getBiddings() {
+        return new ArrayList<>(this.biddingRepo.findAll());
+    }
+
+    public boolean addReviewerForProposal(Reviewer reviewer, Proposal proposal) {
+        Optional<Reviewer> reviewer1 = reviewerRepoI.findById(reviewer.getId());
+        Optional<Proposal> proposal1 = proposalRepo.findById(proposal.getId());
+        if (proposal1.isPresent() && reviewer1.isPresent()) {
+            Bidding bidding = Bidding.builder()
+                    .reviewer(reviewer)
+                    .proposal(proposal)
+                    .result("")
+                    .build();
+            biddingRepo.save(bidding);
+            return true;
+        }
+        return false;
     }
 
 }

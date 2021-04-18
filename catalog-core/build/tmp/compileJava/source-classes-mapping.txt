@@ -57,8 +57,8 @@ ro/ubb/catalog/core/repository/SessionChairRepoI.java
  ro.ubb.catalog.core.repository.SessionChairRepoI
 ro/ubb/catalog/core/repository/BiddingRepoI.java
  ro.ubb.catalog.core.repository.BiddingRepoI
-ro/ubb/catalog/core/config/JPAConfig.java
- ro.ubb.catalog.core.config.JPAConfig
+ro/ubb/catalog/core/service/EmailService.java
+ ro.ubb.catalog.core.service.EmailService
 ro/ubb/catalog/core/repository/SectionRepoI.java
  ro.ubb.catalog.core.repository.SectionRepoI
 ro/ubb/catalog/core/repository/ReviewerRepoI.java
@@ -99,5 +99,5 @@ ro/ubb/catalog/core/repository/SpeakerRepoI.java
  ro.ubb.catalog.core.repository.SpeakerRepoI
 ro/ubb/catalog/core/domain/Author.java
  ro.ubb.catalog.core.domain.Author
-ro/ubb/catalog/core/service/EmailService.java
- ro.ubb.catalog.core.service.EmailService
+ro/ubb/catalog/core/config/JPAConfig.java
+ ro.ubb.catalog.core.config.JPAConfig

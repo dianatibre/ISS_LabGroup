@@ -187,6 +187,7 @@ public class ConferenceController {
     List<Evaluation> getReviews(@RequestBody Proposal proposal){
         return proposalService.findOneProposal(proposal.getId()).map(p->p.getPaper().getEvaluations()).orElse(Collections.emptyList());
     }
+
     @RequestMapping(value ="/recommendation", method = RequestMethod.POST)
     ResponseEntity<String> addRecommendation(@RequestBody Evaluation evaluation){
         boolean result = paperService.updateEvaluationResult(evaluation);
@@ -205,6 +206,10 @@ public class ConferenceController {
 
     @RequestMapping(value = "/authors", method = RequestMethod.GET)
     List<Author> getAuthors() { return participantService.getAuthors();}
+
+    @RequestMapping(value ="/biddings", method = RequestMethod.GET)
+    List<Bidding> getBiddings(){ return proposalService.getBiddings();}
+
 
 
 
@@ -285,7 +290,17 @@ public class ConferenceController {
 
     }
 
-
+    /*
+    @RequestMapping(value ="/biddings", method = RequestMethod.POST)
+    ResponseEntity<String> addReviewerForProposal(@RequestBody Bidding bidding){
+        boolean result = proposalService.updateBidding(bidding);
+        if (result) {
+            return ResponseEntity.ok("Bidding added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bidding was not added!");
+        }
+    }
+    */
 
 
 
