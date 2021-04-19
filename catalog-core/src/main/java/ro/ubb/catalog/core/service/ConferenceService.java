@@ -11,6 +11,7 @@ import ro.ubb.catalog.core.repository.ConferenceRepoI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @ComponentScan("ro.ubb.catalog.core.repository")
 @Service
 public class ConferenceService {
@@ -27,8 +28,8 @@ public class ConferenceService {
     }
 
     public boolean addConference(Conference conference) {
-        if(conference.getName().equals("") || conference.getTopic().equals("") || conference.getDescription().equals("")||
-            conference.getLocation().equals("") || (conference.getStartdate().compareTo(conference.getEnddate()))>0 || conference.getCapacity()<=0){
+        if (conference.getName().equals("") || conference.getTopic().equals("") || conference.getDescription().equals("") ||
+                conference.getLocation().equals("") || (conference.getStartdate().compareTo(conference.getEnddate())) > 0 || conference.getCapacity() <= 0) {
             return false;
         }
         Optional<Conference> conf = this.conferenceRepoI.findById(conference.getId());
@@ -49,12 +50,12 @@ public class ConferenceService {
     }
 
     @Transactional
-    public boolean updateConference(Conference conference){
-        if(conference.getName().equals("") || conference.getTopic().equals("") || conference.getDescription().equals("")||
-                conference.getLocation().equals("") || (conference.getStartdate().compareTo(conference.getEnddate()))<0 || conference.getCapacity()<=0){
+    public boolean updateConference(Conference conference) {
+        if (conference.getName().equals("") || conference.getTopic().equals("") || conference.getDescription().equals("") ||
+                conference.getLocation().equals("") || (conference.getStartdate().compareTo(conference.getEnddate())) < 0 || conference.getCapacity() <= 0) {
             return false;
         }
-        this.conferenceRepoI.findById(conference.getId()).ifPresent(c->{
+        this.conferenceRepoI.findById(conference.getId()).ifPresent(c -> {
             c.setName(conference.getName());
             c.setTopic(conference.getTopic());
             c.setDescription(conference.getDescription());

@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper=false)
 @ToString
 @Builder
 public class Evaluation extends BaseEntity<Integer>{

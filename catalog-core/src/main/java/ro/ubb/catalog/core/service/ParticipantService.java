@@ -66,7 +66,7 @@ public class ParticipantService {
 
     @Transactional
     public boolean updateParticipant(Participant newParticipant) {
-        if (newParticipant.getFirstName().equals("") || newParticipant.getLastName().equals("") || newParticipant.getAge() < 16 || newParticipant.getAffiliation().equals("")|| loginRepo.findByUsername(newParticipant.getLogin().getUsername()) == null) {
+        if (newParticipant.getFirstName().equals("") || newParticipant.getLastName().equals("") || newParticipant.getAge() < 16 || newParticipant.getAffiliation().equals("") || loginRepo.findByUsername(newParticipant.getLogin().getUsername()) == null) {
             return false;
         }
 

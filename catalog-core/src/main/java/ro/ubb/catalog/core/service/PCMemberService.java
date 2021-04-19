@@ -32,15 +32,15 @@ public class PCMemberService {
 
 
     public boolean addPCMember(PCMember member) {
-       if(member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals("")|| loginRepo.findByUsername(member.getLogin().getUsername()) == null)
-           return false;
+        if (member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals("") || loginRepo.findByUsername(member.getLogin().getUsername()) == null)
+            return false;
 
-       Optional<PCMember> mem = this.repo.findById(member.getId());
-       if(mem.isPresent()) {
-           return false;
-       }
-       this.repo.save(member);
-       return true;
+        Optional<PCMember> mem = this.repo.findById(member.getId());
+        if (mem.isPresent()) {
+            return false;
+        }
+        this.repo.save(member);
+        return true;
     }
 
     public Optional<PCMember> findOnePCMember(Integer id) {
@@ -50,7 +50,7 @@ public class PCMemberService {
     public boolean deletePCMember(Integer id) {
         Optional<PCMember> mem = this.repo.findById(id);
 
-        if (mem.isPresent()){
+        if (mem.isPresent()) {
             this.repo.deleteById(id);
             return true;
         }
@@ -59,9 +59,9 @@ public class PCMemberService {
     }
 
     @Transactional
-    public boolean updatePCMember(PCMember member){
-        if(member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals("")
-            || loginRepo.findByUsername(member.getLogin().getUsername()) == null)
+    public boolean updatePCMember(PCMember member) {
+        if (member.getName().equals("") || member.getAffiliation().equals("") || member.getEmail().equals("") || member.getWebsite().equals("")
+                || loginRepo.findByUsername(member.getLogin().getUsername()) == null)
             return false;
 
         this.repo.findById(member.getId()).ifPresent(m -> {
@@ -74,11 +74,11 @@ public class PCMemberService {
     }
 
     public boolean addReviewer(Reviewer reviewer) {
-        if(reviewer.getDomainOfInterest().equals(""))
+        if (reviewer.getDomainOfInterest().equals(""))
             return false;
 
         Optional<Reviewer> re = this.reviewerRepo.findById(reviewer.getId());
-        if(re.isPresent()) {
+        if (re.isPresent()) {
             return false;
         }
         this.reviewerRepo.save(reviewer);
@@ -100,7 +100,7 @@ public class PCMemberService {
     public boolean deleteReviewer(Integer id) {
         Optional<Reviewer> rew = this.reviewerRepo.findById(id);
 
-        if (rew.isPresent()){
+        if (rew.isPresent()) {
             this.reviewerRepo.deleteById(id);
             return true;
         }
@@ -109,18 +109,18 @@ public class PCMemberService {
     }
 
     @Transactional
-    public boolean updateReviewer(Reviewer reviewer){
-        if(reviewer.getDomainOfInterest().equals(""))
+    public boolean updateReviewer(Reviewer reviewer) {
+        if (reviewer.getDomainOfInterest().equals(""))
             return false;
 
         this.reviewerRepo.findById(reviewer.getId()).ifPresent(r -> {
-           r.setDomainOfInterest(reviewer.getDomainOfInterest());
+            r.setDomainOfInterest(reviewer.getDomainOfInterest());
         });
         return true;
     }
 
     public boolean addChair(Chair chair) {
-        if(chair.getPosition().equals(""))
+        if (chair.getPosition().equals(""))
             return false;
 
         Optional<Chair> p = chairRepo.findById(chair.getId());
@@ -149,7 +149,7 @@ public class PCMemberService {
     public boolean deleteChair(Integer id) {
         Optional<Chair> cha = this.chairRepo.findById(id);
 
-        if (cha.isPresent()){
+        if (cha.isPresent()) {
             this.reviewerRepo.deleteById(id);
             return true;
         }
@@ -158,8 +158,8 @@ public class PCMemberService {
     }
 
     @Transactional
-    public boolean updateChair(Chair chair){
-        if(chair.getPosition().equals(""))
+    public boolean updateChair(Chair chair) {
+        if (chair.getPosition().equals(""))
             return false;
 
         this.chairRepo.findById(chair.getId()).ifPresent(c -> {
@@ -175,7 +175,7 @@ public class PCMemberService {
     public Optional<PCMember> getPCMemberByUsername(String username) {
         Optional<Login> login = loginRepo.findAll().stream().filter(l -> l.getUsername().equals(username)).findAny();
         Optional<PCMember> pcMember = repo.findAll().stream().filter(pc -> pc.getLogin().equals(login.get())).findAny();
-        if(pcMember.isPresent()) {
+        if (pcMember.isPresent()) {
             return pcMember;
         }
         return null;
@@ -189,13 +189,13 @@ public class PCMemberService {
         return reviewerRepo.findAll();
     }
 
-    public List<Chair> getAllChairs(){
+    public List<Chair> getAllChairs() {
         return chairRepo.findAll();
     }
 
     @Transactional
     public boolean addSectionToListener(Integer listenerID, Section s) {
-        if(listenerRepo.findById(listenerID).isPresent()){
+        if (listenerRepo.findById(listenerID).isPresent()) {
             Listener listener = listenerRepo.findById(listenerID).get();
             // List<Section> sections = listener.getSections();
             Section se = sectionRepo.findById(s.getId()).get();
@@ -210,13 +210,13 @@ public class PCMemberService {
 
     @Transactional
     public long numberListenersPerSection(Integer sectionID) {
-        if(sectionRepo.findById(sectionID).isPresent()){
+        if (sectionRepo.findById(sectionID).isPresent()) {
             Section s = sectionRepo.findById(sectionID).get();
             List<Listener> listeners = listenerRepo.findAll();
             return listeners.stream().filter(l -> l.getSectionId().equals(s)).count();
         }
 
-        return (long)(0);
+        return (long) (0);
     }
 }
 

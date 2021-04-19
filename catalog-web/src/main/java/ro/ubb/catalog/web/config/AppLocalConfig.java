@@ -8,8 +8,7 @@ import ro.ubb.catalog.core.config.JPAConfig;
 @Configuration
 @ComponentScan({"ro.ubb.catalog.core"})
 @Import({JPAConfig.class})
-@PropertySources({@PropertySource(value = "classpath:local/db.properties"),
-})
+@PropertySources({@PropertySource(value = "classpath:local/db.properties")})
 public class AppLocalConfig {
 
     /**

@@ -41,7 +41,6 @@ public class ConferenceController {
     private EmailService emailService;
 
 
-
     @RequestMapping(value = "/conferences", method = RequestMethod.POST)
     ResponseEntity<String> saveConference(@RequestBody Conference conference) {
         boolean result = conferenceService.addConference(conference);
@@ -72,20 +71,16 @@ public class ConferenceController {
         return emailService.getAllEmails();
     }
 
+    @RequestMapping(value = "/chairs", method = RequestMethod.POST)
+    ResponseEntity<String> addChairBasedInvitation(@RequestBody Chair chair) {
 
-    @RequestMapping(value ="/chairs", method = RequestMethod.POST)
-    ResponseEntity <String> addChairBasedInvitation(@RequestBody Chair chair) {
-
-            boolean addResult = pcMemberService.addChair(chair);
-            if (addResult){
-                return ResponseEntity.ok("A new chair was invited and added successfully !");
-            }
-
-            else{
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Chair was not added successfully!");
-            }
+        boolean addResult = pcMemberService.addChair(chair);
+        if (addResult) {
+            return ResponseEntity.ok("A new chair was invited and added successfully !");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Chair was not added successfully!");
+        }
     }
-
 
    /* @RequestMapping(value ="/chairs", method = RequestMethod.POST)
     ResponseEntity <String> addChairBasedInvitation(@RequestBody Chair chair, @RequestBody Email email) {
@@ -105,23 +100,20 @@ public class ConferenceController {
         }
     }*/
 
-    @RequestMapping(value ="/chairs", method = RequestMethod.GET)
-    List<Chair> getChairs(){ return pcMemberService.getAllChairs();}
-
-
-
-    @RequestMapping(value ="/pcmembers", method = RequestMethod.POST)
-    ResponseEntity <String> addPcMemberBasedInvitation(@RequestBody PCMember pcMember) {
-            boolean addResult = pcMemberService.addPCMember(pcMember);
-            if (addResult){
-                return ResponseEntity.ok("A new PcMember was invited and added successfully !");
-            }
-
-            else{
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PcMember was not added successfully!");
-            }
+    @RequestMapping(value = "/chairs", method = RequestMethod.GET)
+    List<Chair> getChairs() {
+        return pcMemberService.getAllChairs();
     }
 
+    @RequestMapping(value = "/pcmembers", method = RequestMethod.POST)
+    ResponseEntity<String> addPcMemberBasedInvitation(@RequestBody PCMember pcMember) {
+        boolean addResult = pcMemberService.addPCMember(pcMember);
+        if (addResult) {
+            return ResponseEntity.ok("A new PcMember was invited and added successfully !");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("PcMember was not added successfully!");
+        }
+    }
 
     /*@RequestMapping(value ="/pcmembers", method = RequestMethod.POST)
     ResponseEntity <String> addPcMemberBasedInvitation(@RequestBody PCMember pcMember, @RequestBody Email email) {
@@ -139,23 +131,23 @@ public class ConferenceController {
         }
     }*/
 
-    @RequestMapping(value ="/pcmembers", method = RequestMethod.GET)
-    List<PCMember> getPcMembers(){ return pcMemberService.getAllPCMembers();}
+    @RequestMapping(value = "/pcmembers", method = RequestMethod.GET)
+    List<PCMember> getPcMembers() {
+        return pcMemberService.getAllPCMembers();
+    }
 
-
-    @RequestMapping(value="/proposals", method = RequestMethod.POST)
-    ResponseEntity <String> submitProposal(@RequestBody Proposal proposal){
+    @RequestMapping(value = "/proposals", method = RequestMethod.POST)
+    ResponseEntity<String> submitProposal(@RequestBody Proposal proposal) {
         boolean result = proposalService.addProposal(proposal);
         if (result) {
             return ResponseEntity.ok("Proposal submitted successfully!");
-        }
-        else{
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Proposal was not submitted!");
         }
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    ResponseEntity <String> addLogin(@RequestBody Login login) {
+    ResponseEntity<String> addLogin(@RequestBody Login login) {
         boolean result = loginService.addLogin(login);
         if (result) {
             return ResponseEntity.ok("Login added successfully!");
@@ -165,13 +157,17 @@ public class ConferenceController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    List<Login> getLogin(@RequestBody Login login) {return loginService.getLogins();}
+    List<Login> getLogin(@RequestBody Login login) {
+        return loginService.getLogins();
+    }
 
-    @RequestMapping(value ="/proposals", method = RequestMethod.GET)
-    List<Proposal> getProposals(){ return proposalService.getProposals();}
+    @RequestMapping(value = "/proposals", method = RequestMethod.GET)
+    List<Proposal> getProposals() {
+        return proposalService.getProposals();
+    }
 
-    @RequestMapping(value="/evaluations",method=RequestMethod.POST)
-    ResponseEntity <String> addEvaluation(@RequestBody Evaluation evaluation) {
+    @RequestMapping(value = "/evaluations", method = RequestMethod.POST)
+    ResponseEntity<String> addEvaluation(@RequestBody Evaluation evaluation) {
         boolean result = paperService.addEvaluation(evaluation);
         if (result) {
             return ResponseEntity.ok("Evaluation added successfully!");
@@ -180,16 +176,18 @@ public class ConferenceController {
         }
     }
 
-    @RequestMapping(value ="/reviewers", method = RequestMethod.GET)
-    List<Reviewer> getReviewers(){ return pcMemberService.getAllReviewers();}
-
-    @RequestMapping(value ="/reviews", method = RequestMethod.GET)
-    List<Evaluation> getReviews(@RequestBody Proposal proposal){
-        return proposalService.findOneProposal(proposal.getId()).map(p->p.getPaper().getEvaluations()).orElse(Collections.emptyList());
+    @RequestMapping(value = "/reviewers", method = RequestMethod.GET)
+    List<Reviewer> getReviewers() {
+        return pcMemberService.getAllReviewers();
     }
 
-    @RequestMapping(value ="/recommendation", method = RequestMethod.POST)
-    ResponseEntity<String> addRecommendation(@RequestBody Evaluation evaluation){
+    @RequestMapping(value = "/reviews", method = RequestMethod.GET)
+    List<Evaluation> getReviews(@RequestBody Proposal proposal) {
+        return proposalService.findOneProposal(proposal.getId()).map(p -> p.getPaper().getEvaluations()).orElse(Collections.emptyList());
+    }
+
+    @RequestMapping(value = "/recommendation", method = RequestMethod.POST)
+    ResponseEntity<String> addRecommendation(@RequestBody Evaluation evaluation) {
         boolean result = paperService.updateEvaluationResult(evaluation);
         if (result) {
             return ResponseEntity.ok("Recommendation added successfully!");
@@ -199,19 +197,24 @@ public class ConferenceController {
     }
 
     @RequestMapping(value = "/getEvaluations", method = RequestMethod.GET)
-    List<Evaluation> getEvaluations() { return paperService.getAllEvaluations();}
+    List<Evaluation> getEvaluations() {
+        return paperService.getAllEvaluations();
+    }
 
     @RequestMapping(value = "/papers", method = RequestMethod.GET)
-    List<Paper> getPapers() { return paperService.getAllPapers();}
+    List<Paper> getPapers() {
+        return paperService.getAllPapers();
+    }
 
     @RequestMapping(value = "/authors", method = RequestMethod.GET)
-    List<Author> getAuthors() { return participantService.getAuthors();}
+    List<Author> getAuthors() {
+        return participantService.getAuthors();
+    }
 
-    @RequestMapping(value ="/biddings", method = RequestMethod.GET)
-    List<Bidding> getBiddings(){ return proposalService.getBiddings();}
-
-
-
+    @RequestMapping(value = "/biddings", method = RequestMethod.GET)
+    List<Bidding> getBiddings() {
+        return proposalService.getBiddings();
+    }
 
     @RequestMapping(value = "/acceptedPapers", method = RequestMethod.GET)
     List<Paper> getAcceptedPapers() {
@@ -220,7 +223,9 @@ public class ConferenceController {
         List<Evaluation> evalId = getEvaluations().stream().filter(x -> x.getResult().equals("Accepted")).collect(Collectors.toList());
         List<Paper> pap = new ArrayList<>();
 
-        evalId.forEach(x -> { pap.add( paperService.findOnePaper(x.getPaper().getId()).get());});
+        evalId.forEach(x -> {
+            pap.add(paperService.findOnePaper(x.getPaper().getId()).get());
+        });
 
         return pap;
 
@@ -233,7 +238,9 @@ public class ConferenceController {
         List<Paper> pap = getPapers();
         List<Author> aut = new ArrayList<>();
 
-        pap.forEach(x -> {aut.add(participantService.findOneAuthor(x.getProposal().getId()).get());});
+        pap.forEach(x -> {
+            aut.add(participantService.findOneAuthor(x.getProposal().getId()).get());
+        });
 
         return aut;
 
@@ -248,26 +255,24 @@ public class ConferenceController {
 
     }
 
-
     @RequestMapping(value = "/authorsOfAcceptedPapers", method = RequestMethod.GET)
     List<Author> getAuthorsAcceptedPapers() {// returns the authors of the accepted papers
 
         List<Paper> pap = getAcceptedPapers();
         List<Author> aut = new ArrayList<>();
 
-        pap.forEach(x -> {aut.add(participantService.findOneAuthor(x.getProposal().getId()).get());});
+        pap.forEach(x -> {
+            aut.add(participantService.findOneAuthor(x.getProposal().getId()).get());
+        });
 
         return aut;
 
     }
 
-
-
     @RequestMapping(value = "/updPaperOfAuthor", method = RequestMethod.POST)
-    ResponseEntity<String> updateAcceptedPaper(@RequestBody Author author, @RequestBody String document){
+    ResponseEntity<String> updateAcceptedPaper(@RequestBody Author author, @RequestBody String document) {
 
-        if (getAuthorsAcceptedPapers().contains(author))
-        {
+        if (getAuthorsAcceptedPapers().contains(author)) {
             Paper autPaper = getPaperOfAuthor(author);
 
 
@@ -275,19 +280,14 @@ public class ConferenceController {
 
             boolean result = paperService.updatePaper(autPaper);
 
-            if (result){
+            if (result) {
                 return ResponseEntity.ok("Document updated successfully!");
-            }
-            else {
+            } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Couldn't update document!");
             }
-        }
-        else
-        {
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Author has no accepted paper!");
         }
-
-
     }
 
     /*
@@ -301,7 +301,4 @@ public class ConferenceController {
         }
     }
     */
-
-
-
 }

@@ -31,7 +31,7 @@ public class PaperService {
     private ReviewerRepoI reviewerRepo;
 
     public boolean addPaper(Paper paper) {
-        if(paper.getTitle().equals("") || paper.getDocument().equals("") || !proposalRepo.findById(paper.getProposal().getId()).isPresent()){
+        if (paper.getTitle().equals("") || paper.getDocument().equals("") || !proposalRepo.findById(paper.getProposal().getId()).isPresent()) {
             return false;
         }
         Optional<Paper> pap = repo.findById(paper.getId());
@@ -59,7 +59,7 @@ public class PaperService {
 
     @Transactional
     public boolean updatePaper(Paper paper) {
-        if(paper.getTitle().equals("") || paper.getDocument().equals("") || !proposalRepo.findById(paper.getProposal().getId()).isPresent()){
+        if (paper.getTitle().equals("") || paper.getDocument().equals("") || !proposalRepo.findById(paper.getProposal().getId()).isPresent()) {
             return false;
         }
         this.repo.findById(paper.getId()).ifPresent(s -> {
@@ -108,7 +108,9 @@ public class PaperService {
         return new ArrayList<>(this.repo.findAll());
     }
 
-    public List<Evaluation> getAllEvaluations() {return new ArrayList<>(this.evalRepo.findAll());}
+    public List<Evaluation> getAllEvaluations() {
+        return new ArrayList<>(this.evalRepo.findAll());
+    }
 
     public boolean updateEvaluationResult(Evaluation evaluation) {
         if (evaluation.getResult().equals("") || !reviewerRepo.findById(evaluation.getReviewer().getId()).isPresent() || !repo.findById(evaluation.getPaper().getId()).isPresent())
@@ -123,7 +125,7 @@ public class PaperService {
     public boolean deleteEvaluation(Integer id) {
         Optional<Evaluation> evaluation = this.evalRepo.findById(id);
 
-        if (evaluation.isPresent()){
+        if (evaluation.isPresent()) {
             this.evalRepo.deleteById(id);
             return true;
         }
