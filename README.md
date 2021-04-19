@@ -8,8 +8,8 @@
 -	PC members give evaluations (addEvaluation, getProposals, getReviewers, getPCmembers) -evaluation entity- add recommendations 	Razvan
 -	Resolve contradictory reviews(chairs)    Andrada
 -	After a reviewer uploads the review, they’ll be able to see other reviews (getReviews for a proposal)		Razvan
--	Chairs send the results (getAcceptedPapers, getAuthors/EmailsForAccPapers)
--	Authors improve their papers (if it was accepted)
+-	Chairs send the results (getAcceptedPapers, getAuthors/EmailsForAccPapers)  Timotei
+-	Authors improve their papers (if it was accepted)  Timotei
 -	Chairs create the sections, papers to sections (getSections)
 -	Chairs designate PCmembers to be sessionChairs 
 -	Speakers upload the presentations
