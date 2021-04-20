@@ -12,6 +12,7 @@ import ro.ubb.catalog.core.service.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -178,7 +179,7 @@ public class ConferenceController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    List<Login> getLogin(@RequestBody Login login) {
+    List<Login> getLogin() {
         return loginService.getLogins();
     }
 
@@ -292,14 +293,24 @@ public class ConferenceController {
     }
 
     /*
+    func = addBidding
     @RequestMapping(value ="/biddings", method = RequestMethod.POST)
-    ResponseEntity<String> addReviewerForProposal(@RequestBody Bidding bidding){
-        boolean result = proposalService.updateBidding(bidding);
-        if (result) {
-            return ResponseEntity.ok("Bidding added successfully!");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bidding was not added!");
-        }
+    ResponseEntity<String> addReviewerForProposal(@RequestBody HashMap<Reviewer,Proposal> map){
+
+        New bidding(reviewer, proposal)
     }
     */
+
+
+    /*
+    Chairs designate PCmembers to be sessionChairs
+    func(PcMember) -> addSessionChair(PcMember.name)
+     */
+    /*
+    Speakers upload the presentations
+    func(Speaker) -> addSpeaker(Speaker)
+
+    Listeners choose the section
+    func(Listener) -> addListener(Listener)
+     */
 }
