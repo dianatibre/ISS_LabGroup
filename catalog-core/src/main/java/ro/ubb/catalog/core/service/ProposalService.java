@@ -34,8 +34,8 @@ public class ProposalService {
     // return false if proposal already exists
     // return true is proposal is saved successfully
     public boolean addProposal(Proposal p) {
-        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("") || p.getAbstractProposal().equals("")
-                || !conferenceRepoI.findById(p.getConference().getId()).isPresent())
+        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("")
+                || p.getAbstractProposal().equals("") || conferenceRepoI.findById(p.getConference().getId()).isEmpty())
             return false;
         Optional<Proposal> proposal = proposalRepo.findById(p.getId());
         if (proposal.isPresent())
@@ -51,7 +51,8 @@ public class ProposalService {
 
     @Transactional
     public boolean updateProposal(Proposal p) {
-        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("") || p.getAbstractProposal().equals("") || !conferenceRepoI.findById(p.getConference().getId()).isPresent())
+        if (p.getTitle().equals("") || p.getKeywords().equals("") || p.getTopics().equals("") ||
+                p.getAbstractProposal().equals("") || conferenceRepoI.findById(p.getConference().getId()).isEmpty())
             return false;
         Optional<Proposal> proposal = proposalRepo.findById(p.getId());
         if (proposal.isPresent()) {
@@ -95,8 +96,8 @@ public class ProposalService {
 
     public boolean addBidding(Bidding bidding) {
         if (bidding.getResult().equals("") ||
-                !proposalRepo.findById(bidding.getProposal().getId()).isPresent() ||
-                !reviewerRepoI.findById(bidding.getReviewer().getId()).isPresent())
+                proposalRepo.findById(bidding.getProposal().getId()).isEmpty() ||
+                reviewerRepoI.findById(bidding.getReviewer().getId()).isEmpty())
             return false;
         Proposal proposal = proposalRepo.findById(bidding.getProposal().getId()).get();
         List<Bidding> biddings = proposal.getBiddings();
@@ -115,8 +116,8 @@ public class ProposalService {
     @Transactional
     public boolean updateBidding(Bidding bidding) {
         if (bidding.getResult().equals("") ||
-                !proposalRepo.findById(bidding.getProposal().getId()).isPresent() ||
-                !reviewerRepoI.findById(bidding.getReviewer().getId()).isPresent())
+                proposalRepo.findById(bidding.getProposal().getId()).isEmpty() ||
+                reviewerRepoI.findById(bidding.getReviewer().getId()).isEmpty())
             return false;
         Optional<Bidding> bid = biddingRepo.findById(bidding.getId());
         if (bid.isPresent()) {

@@ -216,7 +216,7 @@ public class PCMemberService {
             return listeners.stream().filter(l -> l.getSectionId().equals(s)).count();
         }
 
-        return (long) (0);
+        return 0;
     }
 }
 

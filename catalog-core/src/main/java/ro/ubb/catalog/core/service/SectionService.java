@@ -30,8 +30,8 @@ public class SectionService {
     }
 
     public boolean addSection(Section section) {
-        if (section.getName().equals("") || !conferenceRepo.findById(section.getConference().getId()).isPresent()
-                || !sessionChairRepo.findById(section.getSessionChair().getId()).isPresent())
+        if (section.getName().equals("") || conferenceRepo.findById(section.getConference().getId()).isEmpty()
+                || sessionChairRepo.findById(section.getSessionChair().getId()).isEmpty())
             return false;
         Optional<Section> conf = this.sectionRepo.findById(section.getId());
         if (conf.isPresent()) {
@@ -52,8 +52,8 @@ public class SectionService {
 
     @Transactional
     public boolean updateSection(Section section) {
-        if (section.getName().equals("") || !conferenceRepo.findById(section.getConference().getId()).isPresent()
-                || !sessionChairRepo.findById(section.getSessionChair().getId()).isPresent())
+        if (section.getName().equals("") || conferenceRepo.findById(section.getConference().getId()).isEmpty()
+                || sessionChairRepo.findById(section.getSessionChair().getId()).isEmpty())
             return false;
         this.sectionRepo.findById(section.getId()).ifPresent(s -> {
             s.setName(section.getName());
