@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ro.ubb.catalog.core.domain.*;
 import ro.ubb.catalog.core.service.*;
+import ro.ubb.catalog.core.utils.WrapperObject;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -140,6 +138,16 @@ public class ConferenceController {
             return ResponseEntity.ok("Login added successfully!");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Login was not added!");
+        }
+    }
+
+    @RequestMapping(value = "/reviewers", method = RequestMethod.POST)
+    ResponseEntity<String> addReviewer(@RequestBody Reviewer reviewer) {
+        boolean result = pcMemberService.addReviewer(reviewer);
+        if (result) {
+            return ResponseEntity.ok("Reviewer added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reviewer was not added!");
         }
     }
 
@@ -292,14 +300,21 @@ public class ConferenceController {
         }
     }
 
-    /*
-    func = addBidding
-    @RequestMapping(value ="/biddings", method = RequestMethod.POST)
-    ResponseEntity<String> addReviewerForProposal(@RequestBody HashMap<Reviewer,Proposal> map){
 
-        New bidding(reviewer, proposal)
+    //func = addBidding
+    @RequestMapping(value ="/biddings", method = RequestMethod.POST)
+    ResponseEntity<String> addReviewerForProposal(@RequestBody WrapperObject<Reviewer,Proposal> wrapperObj){
+        Reviewer obj1 = wrapperObj.getObj1();
+        Proposal obj2 = wrapperObj.getObj2();
+        boolean result = proposalService.addReviewerForProposal(obj1,obj2);
+        if (result) {
+            return ResponseEntity.ok("Bidding added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Couldn't add bidding!");
+        }
     }
-    */
+
+
 
 
     /*

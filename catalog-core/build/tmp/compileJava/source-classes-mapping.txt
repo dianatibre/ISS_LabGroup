@@ -63,16 +63,18 @@ ro/ubb/catalog/core/repository/SectionRepoI.java
  ro.ubb.catalog.core.repository.SectionRepoI
 ro/ubb/catalog/core/repository/ReviewerRepoI.java
  ro.ubb.catalog.core.repository.ReviewerRepoI
+ro/ubb/catalog/core/utils/WrapperObject.java
+ ro.ubb.catalog.core.utils.WrapperObject
 ro/ubb/catalog/core/service/PaperService.java
  ro.ubb.catalog.core.service.PaperService
 ro/ubb/catalog/core/domain/Reviewer.java
  ro.ubb.catalog.core.domain.Reviewer
-ro/ubb/catalog/core/domain/ExtendedLogin.java
- ro.ubb.catalog.core.domain.ExtendedLogin
-ro/ubb/catalog/core/repository/PaperRepoI.java
- ro.ubb.catalog.core.repository.PaperRepoI
 ro/ubb/catalog/core/repository/PCMemberRepoI.java
  ro.ubb.catalog.core.repository.PCMemberRepoI
+ro/ubb/catalog/core/repository/PaperRepoI.java
+ ro.ubb.catalog.core.repository.PaperRepoI
+ro/ubb/catalog/core/domain/ExtendedLogin.java
+ ro.ubb.catalog.core.domain.ExtendedLogin
 ro/ubb/catalog/core/domain/PCMember.java
  ro.ubb.catalog.core.domain.PCMember
  ro.ubb.catalog.core.domain.PCMember$PCMemberBuilder
