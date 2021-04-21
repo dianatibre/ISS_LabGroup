@@ -19,9 +19,4 @@ public class Login {
     private String username;
     private String password;
 
-    @OneToOne(mappedBy = "login")
-    private Participant participant;
-
-    @OneToOne(mappedBy = "login")
-    private PCMember pcMember;
 }

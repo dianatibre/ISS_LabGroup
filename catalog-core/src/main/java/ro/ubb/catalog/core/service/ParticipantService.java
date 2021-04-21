@@ -327,9 +327,9 @@ public class ParticipantService {
         List<Login> logins = this.loginRepo.findAll();
         for (Login login : logins) {
             if (login.getUsername().equals(newLogin.getUsername())) {
-                login.setParticipant(newLogin.getParticipant());
+                //login.setParticipant(newLogin.getParticipant());
                 login.setPassword(newLogin.getPassword());
-                login.setPcMember(newLogin.getPcMember());
+                //login.setPcMember(newLogin.getPcMember());
                 return true;
             }
         }
