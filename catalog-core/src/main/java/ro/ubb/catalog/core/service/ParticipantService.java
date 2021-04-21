@@ -329,7 +329,7 @@ public class ParticipantService {
             if (login.getUsername().equals(newLogin.getUsername())) {
                 //login.setParticipant(newLogin.getParticipant());
                 login.setPassword(newLogin.getPassword());
-               //login.setPcMember(newLogin.getPcMember());
+                //login.setPcMember(newLogin.getPcMember());
                 return true;
             }
         }
