@@ -54,8 +54,8 @@ public class LoginService {
         if (logins.contains(login)) {
             Login toUpdate = logins.get(logins.indexOf(login));
             toUpdate.setPassword(login.getPassword());
-            toUpdate.setParticipant(login.getParticipant());
-            toUpdate.setPcMember(login.getPcMember());
+            //toUpdate.setParticipant(login.getParticipant());
+            //toUpdate.setPcMember(login.getPcMember());
         }
         return true;
     }

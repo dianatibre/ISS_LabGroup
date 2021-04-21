@@ -325,7 +325,39 @@ public class ConferenceController {
     Speakers upload the presentations
     func(Speaker) -> addSpeaker(Speaker)
 
+
     Listeners choose the section
     func(Listener) -> addListener(Listener)
      */
+    @RequestMapping(value = "/listener", method = RequestMethod.POST)
+    ResponseEntity<String> addListener(@RequestBody Listener listener){
+
+        boolean result = participantService.addListener(listener);
+        if (result) {
+            return ResponseEntity.ok("Listener added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Couldn't add this listener!");
+        }
+    }
+
+    @RequestMapping(value = "/listener", method = RequestMethod.GET)
+    List<Listener> getListeners() {
+        return participantService.getListeners();
+    }
+
+    @RequestMapping(value = "/speaker", method = RequestMethod.POST)
+    ResponseEntity<String> addSpeaker(@RequestBody Speaker speaker){
+
+        boolean result = participantService.addSpeaker(speaker);
+        if (result) {
+            return ResponseEntity.ok("Speaker added successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Couldn't add this speaker!");
+        }
+    }
+
+    @RequestMapping(value = "/speaker", method = RequestMethod.GET)
+    List<Speaker> getSpeakers() {
+        return participantService.getSpeakers();
+    }
 }
